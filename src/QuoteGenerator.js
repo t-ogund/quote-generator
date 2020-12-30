@@ -9,6 +9,7 @@ class QuoteGenerator extends React.Component {
             quoteArray: [],
             text: "",
             author: ""
+            // firstRandomNum: ""
         }
     }
 
@@ -16,9 +17,21 @@ class QuoteGenerator extends React.Component {
         fetch("https://type.fit/api/quotes")
             .then(response => response.json())
             .then(data => {
+                let firstRandomNum = Math.floor(Math.random(0, data.length) * data.length);
+                let initialQuote = data[firstRandomNum].text
+                let initialAuthor = data[firstRandomNum].author
                 this.setState({
                     quoteArray: data,
+                    text: initialQuote,
+                    author: initialAuthor
                 })
+                console.log(this.state.quoteArray[0])
+                console.log(this.state.firstRandomNum)
+                console.log(this.state.text);
+                console.log(firstRandomNum)
+                console.log(initialQuote)
+                console.log(initialAuthor)
+                console.log(`${initialAuthor} once said, "${initialQuote}"`)
                 // let origArray = this.state.quoteArray
                 // let firstRandomNum = Math.floor(Math.random(0, origArray.length) * origArray.length);
                 // console.log(firstRandomNum);
@@ -30,13 +43,12 @@ class QuoteGenerator extends React.Component {
     }
 
     render() {
-        console.log(this.state.firstAuthor)
         return(
             <React.Fragment>
                 <h3>Quote Generator</h3>
                 <div className="container" id="quote-box">
-                    <h2 id="text">{this.state.firstQuote}</h2>
-                    <p id="author">{this.state.firstAuthor}</p>
+                    <h2 id="text">{this.state.text}</h2>
+                    <p id="author">{this.state.author}</p>
                     <div>
                         {/* <Button text="Twitter" />
                         <Button text="Tumbler" /> */}
